@@ -12,6 +12,8 @@ define Package/bcmkernel
   MENU:=1
 endef
 
+PKG_BUILD_DEPENDS:=imagetag_nand/host
+
 define Package/bcmkernel/description
 	Broadcom kernel and userspace, compiled with the broadcom supplied tool-chain.
 endef

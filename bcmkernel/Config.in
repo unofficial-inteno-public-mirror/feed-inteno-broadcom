@@ -10,7 +10,7 @@ config BCM_OPEN
 
 choice
        prompt "Broadcom SDK version"
-       default BRCM_SDK_VER_416030
+       default BRCM_SDK_VER_416040
        help
 		Version of the Broadcom SDK to use.
 
