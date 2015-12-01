@@ -37,7 +37,7 @@ BCM_BS_PROFILE = $(shell echo $(CONFIG_BCM_KERNEL_PROFILE) | sed s/\"//g)
 BCM_KERNEL_VERSION:=3.4.11-rt19
 BCM_SDK_VERSION:=bcm963xx
 RSTRIP:=true
-
+BCM_BIN_DIR:=$(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/bin/
 
 define Package/bcmkernel/removevoice
 	touch $(1)/lib/modules/$(BCM_KERNEL_VERSION)/extra/endpointdd.ko
@@ -162,36 +162,47 @@ define Package/bcmkernel/install
     endif
 	echo "#define BCM_SDK_VERSION $(BRCM_SDK_VERSION)" > $(STAGING_DIR)/usr/include/bcm_sdk_version.h
 
-	# create symlink to kernel build directory
+# create symlink to kernel build directory
 	rm -f $(BUILD_DIR)/bcmkernel
 	ln -sfn $(PKG_SOURCE_SUBDIR) $(BUILD_DIR)/bcmkernel
 
-	# Install binaries
-	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/bin/*		$(1)/usr/sbin/
-
-	rm -f $(1)/usr/sbin/dhcp6c
-	rm -f $(1)/usr/sbin/dhcp6s
-	rm -f $(1)/usr/sbin/dhcpc
-	rm -f $(1)/usr/sbin/dhcpd
-	rm -f $(1)/usr/sbin/dnsproxy
-	rm -f $(1)/usr/sbin/httpd
-	rm -f $(1)/usr/sbin/openssl
-	rm -f $(1)/usr/sbin/racoon
-	rm -f $(1)/usr/sbin/ripd
-	rm -f $(1)/usr/sbin/send_cms_msg
-	rm -f $(1)/usr/sbin/sshd
-	rm -f $(1)/usr/sbin/ssk
-	rm -f $(1)/usr/sbin/telnetd
-	rm -f $(1)/usr/sbin/tr64c
-	rm -f $(1)/usr/sbin/tr69c
-	rm -f $(1)/usr/sbin/ubi*
-	rm -f $(1)/usr/sbin/udhcpd
-	rm -f $(1)/usr/sbin/upnp
-	rm -f $(1)/usr/sbin/upnpd
-	rm -f $(1)/usr/sbin/vodsl
-	rm -f $(1)/usr/sbin/wlmngr
-	rm -f $(1)/usr/sbin/zebra
-
+# Install binaries
+	$(CP) $(BCM_BIN_DIR)/acs_cli $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/acsd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/adsl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/adslctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/brctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/bsd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/busybox $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/dhd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/dhdctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/eapd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/ebtables $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/ethctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/ethswctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/fap $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/fapctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/fc $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/fcctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/lld2d $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/mcpd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/mdkcmd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/mdkshell $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/nas $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/nvram $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/nvramUpdate $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/pwr $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/pwrctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/smd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/swmdk $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/tmsctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/vlanctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/wlconf $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/wlctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/wps_monitor $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/xdslctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/xtm $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/xtmctl $(1)/usr/sbin/
 
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/etc/cms_entity_info.d/eid_bcm_kthreads.txt	$(1)/etc/cms_entity_info.d/
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/etc/cms_entity_info.d/symbol_table.txt		$(1)/etc/cms_entity_info.d/
@@ -203,7 +214,7 @@ define Package/bcmkernel/install
 	if [ -a $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/etc/rdpa_init.sh ]; then $(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/etc/rdpa_init.sh $(1)/etc/; fi;
 
 
-	# Install libraries
+# Install libraries
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/lib/*		$(1)/usr/lib/
 
 	rm -f $(1)/usr/lib/ld-uClibc.so.0
@@ -229,11 +240,11 @@ define Package/bcmkernel/install
 	rm -rf $(1)/usr/lib/public
 	rm -rf $(1)/usr/lib/gpl
 
-	# Install kernel modules
+# Install kernel modules
 	rm -rf $(1)/lib/modules/$(BCM_KERNEL_VERSION)/*
 	mkdir -p $(1)/lib/modules/$(BCM_KERNEL_VERSION)/
 	cp -R $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/lib/modules/$(BCM_KERNEL_VERSION)/extra	$(1)/lib/modules/$(BCM_KERNEL_VERSION)/
-	#cp -r $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/lib/modules/$(BCM_KERNEL_VERSION)/kernel	$(1)/lib/modules/$(BCM_KERNEL_VERSION)/
+#cp -r $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/lib/modules/$(BCM_KERNEL_VERSION)/kernel	$(1)/lib/modules/$(BCM_KERNEL_VERSION)/
 	find $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/lib/modules/$(BCM_KERNEL_VERSION)/kernel/ -name *.ko -exec cp {} $(1)/lib/modules/$(BCM_KERNEL_VERSION)/ \;
 
 
@@ -242,7 +253,7 @@ define Package/bcmkernel/install
 
 #	rm -rf $(1)/lib/modules/$(BCM_KERNEL_VERSION)/bcm_usb.ko
 
-	# Alternative DECT modules taken from the Natalie package and if that is not selected, no DECT modules should be loaded
+# Alternative DECT modules taken from the Natalie package and if that is not selected, no DECT modules should be loaded
 	rm -f $(1)/lib/modules/$(BCM_KERNEL_VERSION)/extra/dect.ko
 
 
@@ -250,10 +261,10 @@ define Package/bcmkernel/install
 	$(KERNEL_CROSS)strip --remove-section=.note --remove-section=.comment $(KDIR)/vmlinux.bcm.elf
 	$(KERNEL_CROSS)objcopy $(OBJCOPY_STRIP) -O binary $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/kernel/linux-3.4rt/vmlinux $(KDIR)/vmlinux.bcm
 
-	# bootloader nor
+# bootloader nor
 #	cp -R $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/cfe/build/broadcom/bcm63xx_rom/bcm9$(CONFIG_BCM_CHIP_ID)_cfe.w $(KDIR)/bcm_bootloader_cfe.w
 
-	# ram part of the bootloader for nand boot
+# ram part of the bootloader for nand boot
 	if [ -a $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/cfe/build/broadcom/bcm63xx_ram/cfe$(CONFIG_BCM_CHIP_ID).bin ]; then cp -R $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/cfe/build/broadcom/bcm63xx_ram/cfe$(CONFIG_BCM_CHIP_ID).bin $(KDIR)/cferam.001; fi;
 	if [ -a $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/cfe/build/broadcom/bcm63xx_ram/cfe$(CONFIG_BCM_CHIP_ID)ram.bin ]; then cp -R $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/cfe/build/broadcom/bcm63xx_ram/cfe$(CONFIG_BCM_CHIP_ID)ram.bin $(KDIR)/cferam.001; fi;
 	cp -R $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/cfe/build/broadcom/bcm63xx_rom/cfe$(CONFIG_BCM_CHIP_ID)_nand.v $(KDIR)/cfe$(CONFIG_BCM_CHIP_ID)_nand.v
