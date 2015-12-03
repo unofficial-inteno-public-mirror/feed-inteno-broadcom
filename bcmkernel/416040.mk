@@ -38,6 +38,7 @@ BCM_KERNEL_VERSION:=3.4.11-rt19
 BCM_SDK_VERSION:=bcm963xx
 RSTRIP:=true
 BCM_BIN_DIR:=$(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/bin/
+BCM_LIB_DIR:=$(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/lib/
 
 define Package/bcmkernel/removevoice
 	touch $(1)/lib/modules/$(BCM_KERNEL_VERSION)/extra/endpointdd.ko
@@ -171,7 +172,7 @@ define Package/bcmkernel/install
 	$(CP) $(BCM_BIN_DIR)/acsd $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/adsl $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/adslctl $(1)/usr/sbin/
-	$(CP) $(BCM_BIN_DIR)/brctl $(1)/usr/sbin/
+#	$(CP) $(BCM_BIN_DIR)/brctl $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/bsd $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/busybox $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/dhd $(1)/usr/sbin/
@@ -215,30 +216,50 @@ define Package/bcmkernel/install
 
 
 # Install libraries
-	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/lib/*		$(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_cli.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_core.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_dal.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_msg.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_qdm.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebtable_broute.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebtable_filter.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebtable_nat.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebtc.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_ftos.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_ip6.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_ip.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_mark_m.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_mark.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_skiplog.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_standard.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_time.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_vlan.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_wmm_mark.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libfapctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libfcctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libnanoxml.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libnvram.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libpwrctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libsnoopctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libspuctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libssp.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libtmctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libvlanctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlcsm.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlupnp.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwps.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libxdslctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlbcmcrypto.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlbcmshared.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_util.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libbcm_crc.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libbcm_flashutil.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_boardctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libatmctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libethswctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlmngr.so $(1)/usr/lib/
 
-	rm -f $(1)/usr/lib/ld-uClibc.so.0
-	rm -f $(1)/usr/lib/libc.so.0
-	rm -f $(1)/usr/lib/libdl.so.0
-	rm -f $(1)/usr/lib/libgcc_s.so.1
-	rm -f $(1)/usr/lib/libpthread.so.0
-	rm -f $(1)/usr/lib/libm.so.0
-	rm -f $(1)/usr/lib/libutil.so.0
-	rm -f $(1)/usr/lib/libcrypt.so.0
-
-	rm -f $(1)/usr/lib/libcrypto.so
-	ln -s /usr/lib/libcrypto.so.1.0.0 $(1)/usr/lib/libcrypto.so
-	rm -f $(1)/usr/lib/libcrypto.so.0.9.7
-	ln -s /usr/lib/libcrypto.so.1.0.0 $(1)/usr/lib/libcrypto.so.0.9.7
-	rm -f $(1)/usr/lib/libssl.so
-	ln -s /usr/lib/libssl.so.1.0.0 $(1)/usr/lib/libssl.so
-	rm -f $(1)/usr/lib/libssl.so.0.9.7
-	ln -s /usr/lib/libssl.so.1.0.0 $(1)/usr/lib/libssl.so.0.9.7
-
-	rm -rf $(1)/usr/lib/modules
-	rm -rf $(1)/usr/lib/private
-	rm -rf $(1)/usr/lib/public
-	rm -rf $(1)/usr/lib/gpl
 
 # Install kernel modules
 	rm -rf $(1)/lib/modules/$(BCM_KERNEL_VERSION)/*
