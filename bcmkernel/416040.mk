@@ -171,42 +171,102 @@ ifneq ($(CONFIG_BCM_OPEN),y)
 	ln -sfn $(PKG_SOURCE_SUBDIR) $(BUILD_DIR)/bcmkernel
 endif
 
-	# Install binaries
+# Install binaries
+# auto channel selection
 	$(CP) $(BCM_BIN_DIR)/acs_cli $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/acsd $(1)/usr/sbin/
-	$(CP) $(BCM_BIN_DIR)/adsl $(1)/usr/sbin/
-	$(CP) $(BCM_BIN_DIR)/adslctl $(1)/usr/sbin/
-#	$(CP) $(BCM_BIN_DIR)/brctl $(1)/usr/sbin/
+
+# bcm bridge control
+	$(CP) $(BCM_BIN_DIR)/brctl $(1)/usr/sbin/
+
+# band steering daemon
+# switch between 2.4 and 5 GHz wifi
 	$(CP) $(BCM_BIN_DIR)/bsd $(1)/usr/sbin/
-	$(CP) $(BCM_BIN_DIR)/busybox $(1)/usr/sbin/
-	$(CP) $(BCM_BIN_DIR)/dhd $(1)/usr/sbin/
-	$(CP) $(BCM_BIN_DIR)/dhdctl $(1)/usr/sbin/
+
+# wireless control util for AC cards using dhd (offloading) module
+# dhd -> dhdctl
+#	$(CP) $(BCM_BIN_DIR)/dhd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/dhdctl $(1)/usr//
+
+# daemon used to check bcm nvram wifi parameters 
 	$(CP) $(BCM_BIN_DIR)/eapd $(1)/usr/sbin/
+
+# layer 2 packet filtering (could we use openwrt?)
 	$(CP) $(BCM_BIN_DIR)/ebtables $(1)/usr/sbin/
+
+# ethernet control utility extended with brcm ioctl:s
 	$(CP) $(BCM_BIN_DIR)/ethctl $(1)/usr/sbin/
+
+# ethernet switch control utility extended with brcm ioctl:s
 	$(CP) $(BCM_BIN_DIR)/ethswctl $(1)/usr/sbin/
-	$(CP) $(BCM_BIN_DIR)/fap $(1)/usr/sbin/
+
+
+# bcm fast packet accelerator utility
+# fap -> fapctl
+#	$(CP) $(BCM_BIN_DIR)/fap $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/fapctl $(1)/usr/sbin/
-	$(CP) $(BCM_BIN_DIR)/fc $(1)/usr/sbin/
+
+# bcm flow cache utility
+# fc -> fcctl
+#	$(CP) $(BCM_BIN_DIR)/fc $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/fcctl $(1)/usr/sbin/
+
+# brcm layer2 utility, releated to wifi, function unknown
 	$(CP) $(BCM_BIN_DIR)/lld2d $(1)/usr/sbin/
+
+# brcm multicast daemon
 	$(CP) $(BCM_BIN_DIR)/mcpd $(1)/usr/sbin/
+
+# brcm switch related utility
 	$(CP) $(BCM_BIN_DIR)/mdkcmd $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/mdkshell $(1)/usr/sbin/
+
+# wifi authentication daemon
 	$(CP) $(BCM_BIN_DIR)/nas $(1)/usr/sbin/
+
+# brcm nvram utility
 	$(CP) $(BCM_BIN_DIR)/nvram $(1)/usr/sbin/
+
+# update nvram from a file
 	$(CP) $(BCM_BIN_DIR)/nvramUpdate $(1)/usr/sbin/
-	$(CP) $(BCM_BIN_DIR)/pwr $(1)/usr/sbin/
+
+# brcm power control utility
+# pwr -> pwrctl
+#	$(CP) $(BCM_BIN_DIR)/pwr $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/pwrctl $(1)/usr/sbin/
+
+# brcm system daemon
 	$(CP) $(BCM_BIN_DIR)/smd $(1)/usr/sbin/
+
+# brcm switch daemon
 	$(CP) $(BCM_BIN_DIR)/swmdk $(1)/usr/sbin/
+
+# unknown 
 	$(CP) $(BCM_BIN_DIR)/tmsctl $(1)/usr/sbin/
+
+# brcm vlan controller
 	$(CP) $(BCM_BIN_DIR)/vlanctl $(1)/usr/sbin/
+
+# brcm wireless configuration tool
+# reads from nvram and configures wifi with wlctl commands
 	$(CP) $(BCM_BIN_DIR)/wlconf $(1)/usr/sbin/
+
+# brcm wireless configuration utility
 	$(CP) $(BCM_BIN_DIR)/wlctl $(1)/usr/sbin/
+
+# brcm wps daemon
 	$(CP) $(BCM_BIN_DIR)/wps_monitor $(1)/usr/sbin/
+
+# brcm dsl control utility
+# adslctl -> xdslctl
+# adsl -> xdslctl
+#	$(CP) $(BCM_BIN_DIR)/adsl $(1)/usr/sbin/
+#	$(CP) $(BCM_BIN_DIR)/adslctl $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/xdslctl $(1)/usr/sbin/
-	$(CP) $(BCM_BIN_DIR)/xtm $(1)/usr/sbin/
+
+# brcm dsl layer2 control utility
+# xtm -> xtmctl
+#	$(CP) $(BCM_BIN_DIR)/xtm $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/xtmctl $(1)/usr/sbin/
 
 
