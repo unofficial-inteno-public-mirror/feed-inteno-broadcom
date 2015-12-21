@@ -49,13 +49,10 @@ include ./416021.mk
 else ifeq ($(CONFIG_BRCM_SDK_VER_416030),y)
 include ./416030.mk
 
-else ifeq ($(CONFIG_BRCM_SDK_VER_416040),y)
+#else ifeq ($(CONFIG_BRCM_SDK_VER_416040),y)
+else	
 include ./416040.mk
 
-else
-# Make 'make menuconfig' work even though no SDK version specified
-PKG_VERSION:=none
-include $(INCLUDE_DIR)/package.mk
 endif
 
 # hack to be able to compile just the userspace part.
