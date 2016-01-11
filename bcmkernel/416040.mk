@@ -93,6 +93,7 @@ define Package/bcmkernel/install
 	$(INSTALL_DIR) $(1)/lib
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/etc/adsl
 	$(INSTALL_DIR) $(1)/etc/wlan
 	$(INSTALL_DIR) $(1)/etc/cms_entity_info.d
@@ -167,13 +168,22 @@ define Package/bcmkernel/install
 	rm -f $(BUILD_DIR)/bcmkernel
 	ln -sfn $(PKG_SOURCE_SUBDIR) $(BUILD_DIR)/bcmkernel
 
+
 # Install binaries
+
 # auto channel selection
 	$(CP) $(BCM_BIN_DIR)/acs_cli $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/acsd $(1)/usr/sbin/
 
 # bcm bridge control
 	$(CP) $(BCM_BIN_DIR)/brctl $(1)/usr/sbin/
+
+
+# broadcom busybox
+	$(CP) $(BCM_BIN_DIR)/busybox $(1)/usr/sbin/
+# taskset called by wl driver
+	ln -s /usr/sbin/busybox $(1)/usr/bin/taskset
+
 
 # band steering daemon
 # switch between 2.4 and 5 GHz wifi
@@ -320,6 +330,8 @@ define Package/bcmkernel/install
 	$(CP) $(BCM_LIB_DIR)/libatmctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libethswctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libwlmngr.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcrypto.so* $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libssl.so* $(1)/usr/lib/
 
 
 # Install kernel modules
