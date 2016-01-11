@@ -12,7 +12,7 @@ PKG_NAME:=brcm-base-files
 PKG_VERSION:=1.0
 PKG_SOURCE_URL:=git@iopsys.inteno.se:brcm-base-files.git
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=efae1dddea7cddab6012d7bc32e75a299ebdbe26
+PKG_SOURCE_VERSION:=646f2b8620ddbea4a4409b7bad0cb1a0edabb428
 
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
