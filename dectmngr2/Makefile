@@ -36,6 +36,7 @@ define Package/dectmngr2
   CATEGORY:=Utilities
   TITLE:=Dectmngr2
   URL:=
+  DEPENDS:= +natalie-dect-h +libuci +libubox +ubus
 endef
 
 define Package/dectmngr2/description
