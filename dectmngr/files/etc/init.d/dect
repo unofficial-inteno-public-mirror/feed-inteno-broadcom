@@ -9,14 +9,9 @@ DEFAULT=
 OPTIONS=""
 
 
-start_dect() {
+start_service() {
 	# avoid fp timing problem
 	echo 1 > /proc/sys/kernel/printk_with_interrupt_enabled
-	
-	# wait for kernel modules to load
-	while [ ! -f /tmp/modules_loaded ]; do
-	    sleep 1
-	done
 	
 	# setup board specific dect parameters
 	cat /proc/nvram/rfpi | tr -d ' ' | atohx > /tmp/rfpi
@@ -40,11 +35,6 @@ start_dect() {
 	# init dectproxy
 	dectproxy > /dev/null 2>&1 &
 	dectmngr > /tmp/dectmngr 2>&1 &
-}
-
-
-start_service() {
-    start_dect &
 }
 
 stop_service() {
