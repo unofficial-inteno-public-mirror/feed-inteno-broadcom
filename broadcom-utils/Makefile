@@ -6,11 +6,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_VERSION:=2d83316221fe1e3be7d86c1d44d99b00b62f2373
 PKG_SOURCE_PROTO:=git
-ifeq ($(CONFIG_BCM_OPEN),y)
-PKG_SOURCE_URL:=http://public.inteno.se/broadcom-utils
-else
-PKG_SOURCE_URL:=git@public.inteno.se:broadcom-utils
-endif
+PKG_SOURCE_URL:=http://public.inteno.se:/broadcom-utils
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_RELEASE)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)

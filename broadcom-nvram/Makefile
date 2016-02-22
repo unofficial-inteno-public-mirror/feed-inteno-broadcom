@@ -14,11 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_VERSION:=8b6018d9ce5e292f0a4a3e86f8fa7d8bc003c3fb
 PKG_SOURCE_PROTO:=git
-ifeq ($(CONFIG_BCM_OPEN),y)
-PKG_SOURCE_URL:=http://public.inteno.se/broadcom-nvram
-else
-PKG_SOURCE_URL:=git@public.inteno.se:broadcom-nvram
-endif
+PKG_SOURCE_URL:=http://public.inteno.se:/broadcom-nvram
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_RELEASE)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)

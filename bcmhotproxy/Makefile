@@ -14,11 +14,7 @@ PKG_RELEASE:=13
 
 PKG_SOURCE_VERSION:=63a265031b870a0aa6b45352cf28224518a31638
 PKG_SOURCE_PROTO:=git
-ifeq ($(CONFIG_BCM_OPEN),y)
-PKG_SOURCE_URL:=http://public.inteno.se/bcmhotproxy
-else
-PKG_SOURCE_URL:=git@public.inteno.se:bcmhotproxy
-endif
+PKG_SOURCE_URL:=http://public.inteno.se:/bcmhotproxy
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_RELEASE)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
