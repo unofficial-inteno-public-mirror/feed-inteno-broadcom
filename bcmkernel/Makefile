@@ -25,18 +25,6 @@ ifeq ($(CONFIG_ARCH),)
 -include $(TOPDIR)/.config
 endif
 
-ifeq ($(CONFIG_BCM_OPEN),y)
-PKG_NAME:=bcmopen
-PKG_VERSION:=consumer
-PKG_RELEASE:=1
-
-TARGET_VERSION=$(shell echo $(CONFIG_TARGET_VERSION) | sed s/\"//g)
-TARGET_IBOARDID=$(shell echo $(CONFIG_TARGET_IBOARDID) | sed s/\"//g)
-
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).$(TARGET_VERSION).$(TARGET_IBOARDID).tar.gz
-PKG_SOURCE_URL:=http://ihgsp.inteno.se/ihgsp/consumer/
-endif
-
 ifeq ($(CONFIG_BRCM_SDK_VER_414040),y)
 include ./414040.mk
 
@@ -53,6 +41,18 @@ else
 # Make 'make menuconfig' work even though no SDK version specified
 PKG_VERSION:=none
 include $(INCLUDE_DIR)/package.mk
+endif
+
+ifeq ($(CONFIG_BCM_OPEN),y)
+PKG_NAME:=bcmopen
+PKG_VERSION:=consumer
+
+BRCM_KERNEL_PROFILE=$(shell echo $(CONFIG_BCM_KERNEL_PROFILE) | sed s/\"//g)
+TARGET_VERSION=$(shell echo $(CONFIG_TARGET_VERSION) | sed s/\"//g)
+TARGET_IBOARDID=$(shell echo $(CONFIG_TARGET_IBOARDID) | sed s/\"//g)
+
+PKG_SOURCE:=$(PKG_NAME)-$(BRCM_KERNEL_PROFILE)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_SOURCE_URL:=http://iopsys.inteno.se/iopsys/consumer/
 endif
 
 # hack to be able to compile just the userspace part.
