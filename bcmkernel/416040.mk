@@ -8,6 +8,8 @@
 # update this based on the Broadcom SDK version, 4.16L.04  -> 416040
 BRCM_SDK_VERSION:=416040
 
+PKG_SOURCE_VERSION:=6d38333490378e0dc646341184018dc5a4420743
+
 ifneq ($(CONFIG_BCM_OPEN),y)
 PKG_NAME:=bcmkernel-3.4
 PKG_VERSION:=$(BRCM_SDK_VERSION)
@@ -15,10 +17,8 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=git@iopsys.inteno.se:bcmkernel
 PKG_SOURCE_PROTO:=git
-endif
-
-PKG_SOURCE_VERSION:=6d38333490378e0dc646341184018dc5a4420743
 PKG_SOURCE:=$(PKG_NAME)-$(BRCM_SDK_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+endif
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(BRCM_SDK_VERSION)
 PKG_SOURCE_VERSION_FILE:=$(lastword $(MAKEFILE_LIST))
@@ -158,14 +158,16 @@ define Package/bcmkernel/install
 
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/bcmdrivers/broadcom/include/bcm963xx/endptvoicestats.h $(STAGING_DIR)/usr/include/bcm963xx/bcmdrivers/broadcom/include/bcm963xx/endptvoicestats.h
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/bcmdrivers/broadcom/include/bcm963xx/endpointdrv.h $(STAGING_DIR)/usr/include/bcm963xx/bcmdrivers/broadcom/include/bcm963xx/endpointdrv.h
-    ifneq ($(CONFIG_BCM_OPEN),y)
+ifneq ($(CONFIG_BCM_OPEN),y)
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/userspace/private/apps/vodsl/voip/inc/tpProfiles.h $(STAGING_DIR)/usr/include/bcm963xx/userspace/private/apps/vodsl/voip/inc
-    endif
+endif
 	echo "#define BCM_SDK_VERSION $(BRCM_SDK_VERSION)" > $(STAGING_DIR)/usr/include/bcm_sdk_version.h
 
+ifneq ($(CONFIG_BCM_OPEN),y)
 	# create symlink to kernel build directory
 	rm -f $(BUILD_DIR)/bcmkernel
 	ln -sfn $(PKG_SOURCE_SUBDIR) $(BUILD_DIR)/bcmkernel
+endif
 
 	# Install binaries
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/bin/*		$(1)/usr/sbin/

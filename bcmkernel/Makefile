@@ -44,15 +44,19 @@ include $(INCLUDE_DIR)/package.mk
 endif
 
 ifeq ($(CONFIG_BCM_OPEN),y)
-PKG_NAME:=bcmopen
-PKG_VERSION:=consumer
-
 BRCM_KERNEL_PROFILE=$(shell echo $(CONFIG_BCM_KERNEL_PROFILE) | sed s/\"//g)
 TARGET_VERSION=$(shell echo $(CONFIG_TARGET_VERSION) | sed s/\"//g)
 TARGET_IBOARDID=$(shell echo $(CONFIG_TARGET_IBOARDID) | sed s/\"//g)
 
+PKG_NAME:=bcmopen
+PKG_VERSION:=consumer
+
 PKG_SOURCE:=$(PKG_NAME)-$(BRCM_KERNEL_PROFILE)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_SOURCE_URL:=http://iopsys.inteno.se/iopsys/consumer/
+
+define Build/Prepare
+	tar -xzv -C $(BUILD_DIR)/ -f $(TOPDIR)/dl/$(PKG_SOURCE) >/dev/null
+endef
 endif
 
 # hack to be able to compile just the userspace part.
