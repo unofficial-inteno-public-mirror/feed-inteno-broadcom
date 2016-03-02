@@ -56,6 +56,8 @@ PKG_SOURCE_URL:=http://iopsys.inteno.se/iopsys/consumer/
 
 define Build/Prepare
 	tar -xzv -C $(BUILD_DIR)/ -f $(TOPDIR)/dl/$(PKG_SOURCE) >/dev/null
+	rm -f $(BUILD_DIR)/bcmkernel
+	ln -sfn $(PKG_NAME)-$(PKG_VERSION) $(BUILD_DIR)/bcmkernel
 endef
 endif
 
