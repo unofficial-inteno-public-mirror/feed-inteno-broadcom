@@ -334,8 +334,6 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libatmctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libethswctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libwlmngr.so $(1)/usr/lib/
-	$(CP) $(BCM_LIB_DIR)/libcrypto.so* $(1)/usr/lib/
-	$(CP) $(BCM_LIB_DIR)/libssl.so* $(1)/usr/lib/
 
 
 	# Install kernel modules
