@@ -5,7 +5,7 @@
 # See /LICENSE for more information.
 #
 
-# update this based on the Broadcom SDK version, 4.16L.04  -> 416040
+# Update this based on the Broadcom SDK version, 4.16L.04 -> 416040
 BRCM_SDK_VERSION:=416040
 
 PKG_SOURCE_VERSION:=f615cebea9fe8ac3ba0fa744f31d99098e4ec309
@@ -15,7 +15,7 @@ PKG_NAME:=bcmkernel-3.4
 PKG_VERSION:=$(BRCM_SDK_VERSION)
 PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=git@iopsys.inteno.se:bcmkernel
+PKG_SOURCE_URL:=git@private.inteno.se:bcmkernel
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE:=$(PKG_NAME)-$(BRCM_SDK_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 endif
