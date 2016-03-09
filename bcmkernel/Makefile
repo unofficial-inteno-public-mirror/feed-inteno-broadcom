@@ -25,7 +25,7 @@ ifeq ($(CONFIG_ARCH),)
 -include $(TOPDIR)/.config
 endif
 
-else ifeq ($(CONFIG_BRCM_SDK_VER_416040),y)
+ifeq ($(CONFIG_BRCM_SDK_VER_416040),y)
 include ./416040.mk
 
 else
