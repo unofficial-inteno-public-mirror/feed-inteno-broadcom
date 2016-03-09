@@ -10,6 +10,7 @@ define Package/bcmkernel
   TITLE:=Broadcom sdk 3.4 kernel
   URL:=
   MENU:=1
+  DEPENDS:=+libpthread
 endef
 
 define Package/bcmkernel/description

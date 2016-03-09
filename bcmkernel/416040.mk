@@ -39,6 +39,8 @@ BCM_BS_PROFILE = $(shell echo $(CONFIG_BCM_KERNEL_PROFILE) | sed s/\"//g)
 BCM_KERNEL_VERSION:=3.4.11-rt19
 BCM_SDK_VERSION:=bcm963xx
 RSTRIP:=true
+BCM_BIN_DIR:=$(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/bin/
+BCM_LIB_DIR:=$(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/lib/
 
 define Package/bcmkernel/removevoice
 	touch $(1)/lib/modules/$(BCM_KERNEL_VERSION)/extra/endpointdd.ko
@@ -170,38 +172,42 @@ ifneq ($(CONFIG_BCM_OPEN),y)
 endif
 
 	# Install binaries
-	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/bin/*		$(1)/usr/sbin/
-
-	rm -f $(1)/usr/sbin/bcmmserver
-	rm -f $(1)/usr/sbin/dhcp6c
-	rm -f $(1)/usr/sbin/dhcp6s
-	rm -f $(1)/usr/sbin/dhcpc
-	rm -f $(1)/usr/sbin/dhcpd
-	rm -f $(1)/usr/sbin/dnsproxy
-	rm -f $(1)/usr/sbin/httpd
-	rm -f $(1)/usr/sbin/openssl
-	rm -f $(1)/usr/sbin/racoon
-	rm -f $(1)/usr/sbin/ripd
-	rm -f $(1)/usr/sbin/send_cms_msg
-	rm -f $(1)/usr/sbin/smbd
-	rm -f $(1)/usr/sbin/smbpasswd
-	rm -f $(1)/usr/sbin/sshd
-	rm -f $(1)/usr/sbin/ssk
-	rm -f $(1)/usr/sbin/sqlite3
-	rm -f $(1)/usr/sbin/telnetd
-	rm -f $(1)/usr/sbin/tr64c
-	rm -f $(1)/usr/sbin/tr69c
-	rm -f $(1)/usr/sbin/ubi*
-	rm -f $(1)/usr/sbin/udhcpd
-	rm -f $(1)/usr/sbin/upnp
-	rm -f $(1)/usr/sbin/upnpd
-	rm -f $(1)/usr/sbin/visdata
-	rm -f $(1)/usr/sbin/vis-datacollector
-	rm -f $(1)/usr/sbin/vis-dcon
-	rm -f $(1)/usr/sbin/vodsl
-	rm -f $(1)/usr/sbin/vpmstats
-	rm -f $(1)/usr/sbin/wlmngr
-	rm -f $(1)/usr/sbin/zebra
+	$(CP) $(BCM_BIN_DIR)/acs_cli $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/acsd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/adsl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/adslctl $(1)/usr/sbin/
+#	$(CP) $(BCM_BIN_DIR)/brctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/bsd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/busybox $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/dhd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/dhdctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/eapd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/ebtables $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/ethctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/ethswctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/fap $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/fapctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/fc $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/fcctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/lld2d $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/mcpd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/mdkcmd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/mdkshell $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/nas $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/nvram $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/nvramUpdate $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/pwr $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/pwrctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/smd $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/swmdk $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/tmsctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/vlanctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/wlconf $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/wlctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/wps_monitor $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/xdslctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/xtm $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/xtmctl $(1)/usr/sbin/
 
 
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/etc/cms_entity_info.d/eid_bcm_kthreads.txt	$(1)/etc/cms_entity_info.d/
@@ -214,40 +220,51 @@ endif
 	if [ -a $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/etc/rdpa_init.sh ]; then $(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/etc/rdpa_init.sh $(1)/etc/; fi;
 
 
-	# Install libraries
-	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/lib/*		$(1)/usr/lib/
+# Install libraries
+	$(CP) $(BCM_LIB_DIR)/libcms_cli.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_core.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_dal.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_msg.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_qdm.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebtable_broute.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebtable_filter.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebtable_nat.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebtc.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_ftos.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_ip6.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_ip.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_mark_m.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_mark.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_skiplog.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_standard.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_time.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_vlan.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libebt_wmm_mark.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libfapctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libfcctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libnanoxml.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libnvram.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libpwrctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libsnoopctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libspuctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libssp.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libtmctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libvlanctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlcsm.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlupnp.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwps.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libxdslctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlbcmcrypto.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlbcmshared.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_util.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libbcm_crc.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libbcm_flashutil.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libcms_boardctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libatmctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libethswctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libwlmngr.so $(1)/usr/lib/
 
-	rm -f $(1)/usr/lib/ld-uClibc.so.0
-	rm -f $(1)/usr/lib/libbdlna-dms-aal.so
-	rm -f $(1)/usr/lib/libbdlna-dms.so
-	rm -f $(1)/usr/lib/libbdlna.so
-	rm -f $(1)/usr/lib/libbmedia.so
-	rm -f $(1)/usr/lib/libb_playback_ip.so
-	rm -f $(1)/usr/lib/libc.so.0
-	rm -f $(1)/usr/lib/libcrypt.so.0
-	rm -f $(1)/usr/lib/libdl.so.0
-	rm -f $(1)/usr/lib/libgcc_s.so.1
-	rm -f $(1)/usr/lib/libm.so.0
-	rm -f $(1)/usr/lib/libpthread.so.0
-	rm -f $(1)/usr/lib/libsqlite3.so*
-	rm -f $(1)/usr/lib/libutil.so.0
-	rm -f $(1)/usr/lib/libwifihttp.so
-	rm -f $(1)/usr/lib/libwlvisualization.so
-	rm -f $(1)/usr/lib/libxml2.so*
-
-	rm -f $(1)/usr/lib/libcrypto.so
-	ln -s /usr/lib/libcrypto.so.1.0.0 $(1)/usr/lib/libcrypto.so
-	rm -f $(1)/usr/lib/libcrypto.so.0.9.7
-	ln -s /usr/lib/libcrypto.so.1.0.0 $(1)/usr/lib/libcrypto.so.0.9.7
-	rm -f $(1)/usr/lib/libssl.so
-	ln -s /usr/lib/libssl.so.1.0.0 $(1)/usr/lib/libssl.so
-	rm -f $(1)/usr/lib/libssl.so.0.9.7
-	ln -s /usr/lib/libssl.so.1.0.0 $(1)/usr/lib/libssl.so.0.9.7
-
-	rm -rf $(1)/usr/lib/modules
-	rm -rf $(1)/usr/lib/private
-	rm -rf $(1)/usr/lib/public
-	rm -rf $(1)/usr/lib/gpl
 
 	# Install kernel modules
 	rm -rf $(1)/lib/modules/$(BCM_KERNEL_VERSION)/*
