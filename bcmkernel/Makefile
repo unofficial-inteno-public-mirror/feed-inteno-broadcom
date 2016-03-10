@@ -43,7 +43,7 @@ PKG_NAME:=bcmopen
 PKG_VERSION:=consumer
 
 PKG_SOURCE:=$(PKG_NAME)-$(BRCM_KERNEL_PROFILE)-$(PKG_SOURCE_VERSION).tar.gz
-PKG_SOURCE_URL:=http://public.inteno.se/precompiled/
+PKG_SOURCE_URL:=http://iopsys.inteno.se/iopsys/consumer/
 
 define Build/Prepare
 	tar -xzv -C $(BUILD_DIR)/ -f $(TOPDIR)/dl/$(PKG_SOURCE) >/dev/null
