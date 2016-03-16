@@ -193,7 +193,7 @@ endif
 # switch between 2.4 and 5 GHz wifi
 	$(CP) $(BCM_BIN_DIR)/bsd $(1)/usr/sbin/
 
-ifneq (963138BGWV|96318GW|96328GW|96328GWV|963381GW|963381GWV|96362GW|96362GWV,$(CONFIG_BCM_KERNEL_PROFILE))
+ifeq (963268GWV|963138BGWV,$(CONFIG_BCM_KERNEL_PROFILE))
 # wireless control util for AC cards using dhd (offloading) module
 # dhd -> dhdctl
 #	$(CP) $(BCM_BIN_DIR)/dhd $(1)/usr/sbin/
@@ -212,7 +212,7 @@ endif
 # ethernet switch control utility extended with brcm ioctl:s
 	$(CP) $(BCM_BIN_DIR)/ethswctl $(1)/usr/sbin/
 
-ifeq (963268B5GW|963268B5GWV|963268GW|963268GWV|96362GW|96362GWV,$(CONFIG_BCM_KERNEL_PROFILE))
+ifeq (963268GWV|96362GWV,$(CONFIG_BCM_KERNEL_PROFILE))
 # bcm fast packet accelerator utility
 # fap -> fapctl
 #	$(CP) $(BCM_BIN_DIR)/fap $(1)/usr/sbin/
@@ -315,11 +315,17 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libebt_time.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libebt_vlan.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libebt_wmm_mark.so $(1)/usr/lib/
+ifeq (963268GWV|96362GWV,$(CONFIG_BCM_KERNEL_PROFILE))
+	$(CP) $(BCM_LIB_DIR)/libfapctl.so $(1)/usr/lib/
+endif
 	$(CP) $(BCM_LIB_DIR)/libfcctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libnanoxml.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libnvram.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libpwrctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libsnoopctl.so $(1)/usr/lib/
+ifeq (963268GWV|96362GWV,$(CONFIG_BCM_KERNEL_PROFILE))
+	$(CP) $(BCM_LIB_DIR)/libspuctl.so $(1)/usr/lib/
+endif
 	$(CP) $(BCM_LIB_DIR)/libssp.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libtmctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libvlanctl.so $(1)/usr/lib/
@@ -337,11 +343,6 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libatmctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libethswctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libwlmngr.so $(1)/usr/lib/
-
-ifeq (963268B5GW|963268B5GWV|963268GW|963268GWV|96362GW|96362GWV,$(CONFIG_BCM_KERNEL_PROFILE))
-	$(CP) $(BCM_LIB_DIR)/libfapctl.so $(1)/usr/lib/
-	$(CP) $(BCM_LIB_DIR)/libspuctl.so $(1)/usr/lib/
-endif
 
 	# Install kernel modules
 	rm -rf $(1)/lib/modules/$(BCM_KERNEL_VERSION)/*
