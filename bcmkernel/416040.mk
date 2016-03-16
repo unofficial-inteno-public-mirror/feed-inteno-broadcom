@@ -269,8 +269,9 @@ endif
 # brcm wireless configuration utility
 	$(CP) $(BCM_BIN_DIR)/wlctl $(1)/usr/sbin/
 
-# brcm wps daemon
+# brcm wps tools
 	$(CP) $(BCM_BIN_DIR)/wps_monitor $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/wps_cmd $(1)/usr/sbin/
 
 # brcm dsl control utility
 # adslctl -> xdslctl
