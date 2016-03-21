@@ -179,9 +179,11 @@ endif
 	$(CP) $(BCM_BIN_DIR)/acs_cli $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/acsd $(1)/usr/sbin/
 
+# tmctl - traffic manager
+	$(CP) $(BCM_BIN_DIR)/tmctl $(1)/usr/sbin/
+
 # bcm bridge control
 	$(CP) $(BCM_BIN_DIR)/brctl $(1)/usr/sbin/
-
 
 # broadcom busybox
 	$(CP) $(BCM_BIN_DIR)/busybox $(1)/usr/sbin/
@@ -344,6 +346,7 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libatmctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libethswctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libwlmngr.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/librdpactl.so $(1)/usr/lib/
 
 	# Install kernel modules
 	rm -rf $(1)/lib/modules/$(BCM_KERNEL_VERSION)/*
