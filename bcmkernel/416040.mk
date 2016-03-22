@@ -195,11 +195,11 @@ endif
 # switch between 2.4 and 5 GHz wifi
 	$(CP) $(BCM_BIN_DIR)/bsd $(1)/usr/sbin/
 
-ifeq (963268GWV|963138BGWV,$(CONFIG_BCM_KERNEL_PROFILE))
+ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV_963138BGWV_),) 
 # wireless control util for AC cards using dhd (offloading) module
 # dhd -> dhdctl
 #	$(CP) $(BCM_BIN_DIR)/dhd $(1)/usr/sbin/
-	$(CP) $(BCM_BIN_DIR)/dhdctl $(1)/usr/
+	$(CP) $(BCM_BIN_DIR)/dhdctl $(1)/usr/sbin/
 endif
 
 # daemon used to check bcm nvram wifi parameters 
@@ -214,7 +214,7 @@ endif
 # ethernet switch control utility extended with brcm ioctl:s
 	$(CP) $(BCM_BIN_DIR)/ethswctl $(1)/usr/sbin/
 
-ifeq (963268GWV|96362GWV,$(CONFIG_BCM_KERNEL_PROFILE))
+ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV_96362GWV_),)
 # bcm fast packet accelerator utility
 # fap -> fapctl
 #	$(CP) $(BCM_BIN_DIR)/fap $(1)/usr/sbin/
@@ -233,7 +233,7 @@ endif
 	$(CP) $(BCM_BIN_DIR)/mcpd $(1)/usr/sbin/
 
 # brcm switch related utility
-ifeq (963268GWV|963381GWV|96362GWV,$(CONFIG_BCM_KERNEL_PROFILE))
+ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV_963381GWV_96362GWV_),)
 	$(CP) $(BCM_BIN_DIR)/mdkcmd $(1)/usr/sbin/
 endif
 	$(CP) $(BCM_BIN_DIR)/mdkshell $(1)/usr/sbin/
@@ -318,17 +318,15 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libebt_time.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libebt_vlan.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libebt_wmm_mark.so $(1)/usr/lib/
-ifeq (963268GWV|96362GWV,$(CONFIG_BCM_KERNEL_PROFILE))
+ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV__96362GWV_),)
 	$(CP) $(BCM_LIB_DIR)/libfapctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libspuctl.so $(1)/usr/lib/
 endif
 	$(CP) $(BCM_LIB_DIR)/libfcctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libnanoxml.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libnvram.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libpwrctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libsnoopctl.so $(1)/usr/lib/
-ifeq (963268GWV|96362GWV,$(CONFIG_BCM_KERNEL_PROFILE))
-	$(CP) $(BCM_LIB_DIR)/libspuctl.so $(1)/usr/lib/
-endif
 	$(CP) $(BCM_LIB_DIR)/libssp.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libtmctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libvlanctl.so $(1)/usr/lib/
@@ -346,7 +344,13 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libatmctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libethswctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libwlmngr.so $(1)/usr/lib/
+
+ifeq (963138BGWV,$(BCM_BS_PROFILE))
+	# needed for tmctl on dg400
 	$(CP) $(BCM_LIB_DIR)/librdpactl.so $(1)/usr/lib/
+endif
+
+
 
 	# Install kernel modules
 	rm -rf $(1)/lib/modules/$(BCM_KERNEL_VERSION)/*
