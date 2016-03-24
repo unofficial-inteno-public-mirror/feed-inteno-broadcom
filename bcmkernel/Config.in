@@ -26,7 +26,7 @@ endchoice
 
 config BCM_KERNEL_PROFILE
        string
-       prompt "Broadcom kernel profile"
+       prompt "Broadcom kernel profile" if TARGET_iopsys_brcm63xx_mips_Default
        default "96368GWV"
        help
 		Profile to build the broadcom software with, 96368GWV, 963268GWV, 96362GWV, 96816GWV, 96816OV
@@ -38,7 +38,7 @@ config BCM_CFE_PASSWORD
 
 config BCM_CHIP_ID
        string
-       prompt "Broadcom chip id"
+       prompt "Broadcom chip id" if TARGET_iopsys_brcm63xx_mips_Default
        default "6368"
        help
 		Chip id to build the cfe with, 6328|6362|6368|6816|63268
@@ -52,14 +52,14 @@ config BCM_BLNAND
 
 config BCM_ENDPOINT_MODULE
        bool
-       prompt "Broadcom endpoint voice FXS support"
+       prompt "Broadcom endpoint voice FXS support" if TARGET_iopsys_brcm63xx_mips_Default
        default y
        help
 		Set this to include the endpoint module in image
 
 config BCM_USBSOUND_MODULES
        bool
-       prompt "Broadcom USB audio support"
+       prompt "Broadcom USB audio support" if TARGET_iopsys_brcm63xx_mips_Default
        default n
        help
 		Set this to include sound support modules in image
@@ -67,14 +67,14 @@ config BCM_USBSOUND_MODULES
 
 config BCM_I2C
        bool
-       prompt "Broadcom I2C support"
+       prompt "Broadcom I2C support" if TARGET_iopsys_brcm63xx_mips_Default
        default n
        help
 		Set this to include the i2c modules in image
 
 config BCM_BLUETOOTH
        bool
-       prompt "Broadcom Bluetooth support"
+       prompt "Broadcom Bluetooth support" if TARGET_iopsys_brcm63xx_mips_Default
        default n
        help
 		Set this to include the Bluetooth modules in image
