@@ -53,7 +53,7 @@ config BCM_BLNAND
 config BCM_ENDPOINT_MODULE
        bool
        prompt "Broadcom endpoint voice FXS support" if TARGET_iopsys_brcm63xx_mips_Default
-       default y
+       default n
        help
 		Set this to include the endpoint module in image
 
