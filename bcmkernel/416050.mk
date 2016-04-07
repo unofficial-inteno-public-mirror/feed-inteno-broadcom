@@ -344,12 +344,11 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libatmctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libethswctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libwlmngr.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libbridgeutil.so $(1)/usr/lib/
 
 ifeq (963138BGWV,$(BCM_BS_PROFILE))
 	# needed by tmctl on dg400
 	$(CP) $(BCM_LIB_DIR)/librdpactl.so $(1)/usr/lib/
-	# needed by mcpd on dg400
-	$(CP) $(BCM_LIB_DIR)/libbridgeutil.so $(1)/usr/lib/
 endif
 
 
