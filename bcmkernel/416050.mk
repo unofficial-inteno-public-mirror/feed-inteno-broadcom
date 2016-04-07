@@ -287,6 +287,10 @@ endif
 #	$(CP) $(BCM_BIN_DIR)/xtm $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/xtmctl $(1)/usr/sbin/
 
+# crypto acceleration 
+ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV__96362GWV_),)
+	$(CP) $(BCM_BIN_DIR)/spuctl $(1)/usr/sbin/	
+endif
 
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/etc/cms_entity_info.d/eid_bcm_kthreads.txt	$(1)/etc/cms_entity_info.d/
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/etc/cms_entity_info.d/symbol_table.txt		$(1)/etc/cms_entity_info.d/
