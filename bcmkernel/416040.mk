@@ -97,6 +97,7 @@ define Package/bcmkernel/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/etc/adsl
+	$(INSTALL_DIR) $(1)/etc/dsl
 	$(INSTALL_DIR) $(1)/etc/wlan
 	$(INSTALL_DIR) $(1)/etc/cms_entity_info.d
 
@@ -354,6 +355,8 @@ ifeq (963138BGWV,$(BCM_BS_PROFILE))
 	$(CP) $(BCM_LIB_DIR)/librdpactl.so $(1)/usr/lib/
 endif
 
+	# install dsl firmware
+	cp $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/dsl/$(BCM_BS_PROFILE)/* $(1)/etc/dsl
 
 
 	# Install kernel modules
