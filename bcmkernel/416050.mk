@@ -290,7 +290,9 @@ endif
 
 # crypto acceleration 
 ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV__96362GWV_),)
-	$(CP) $(BCM_BIN_DIR)/spuctl $(1)/usr/sbin/	
+	$(CP) $(BCM_BIN_DIR)/spuctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/setkey $(1)/usr/sbin/
+
 endif
 
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/etc/cms_entity_info.d/eid_bcm_kthreads.txt	$(1)/etc/cms_entity_info.d/
@@ -326,6 +328,7 @@ endif
 ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV__96362GWV_),)
 	$(CP) $(BCM_LIB_DIR)/libfapctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libspuctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libresolv.so.0 $(1)/usr/lib/
 endif
 	$(CP) $(BCM_LIB_DIR)/libfcctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libnanoxml.so $(1)/usr/lib/
