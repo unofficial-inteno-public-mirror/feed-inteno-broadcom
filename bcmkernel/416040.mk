@@ -271,6 +271,9 @@ endif
 # brcm vlan controller
 	$(CP) $(BCM_BIN_DIR)/vlanctl $(1)/usr/sbin/
 
+# brcm ingress QoS control utility
+	$(CP) $(BCM_BIN_DIR)/iq $(1)/usr/sbin/
+
 # brcm wireless configuration tool
 # reads from nvram and configures wifi with wlctl commands
 	$(CP) $(BCM_BIN_DIR)/wlconf $(1)/usr/sbin/
