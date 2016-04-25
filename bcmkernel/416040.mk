@@ -167,9 +167,11 @@ ifneq ($(CONFIG_BCM_OPEN),y)
 endif
 	echo "#define BCM_SDK_VERSION $(BRCM_SDK_VERSION)" > $(STAGING_DIR)/usr/include/bcm_sdk_version.h
 
-	# get strophe.h from Broadcom Kernel
+	# get strophe.h and libstrophe.so from Broadcom Kernel
 	$(INSTALL_DIR) $(STAGING_DIR)/usr/include/strophe
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/userspace/public/libs/strophe/libstrophe/strophe.h $(STAGING_DIR)/usr/include/strophe/
+	$(INSTALL_DIR) $(STAGING_DIR)/usr/lib
+	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/userspace/public/libs/strophe/libstrophe/src/libstrophe.so $(STAGING_DIR)/usr/lib/
 
 ifneq ($(CONFIG_BCM_OPEN),y)
 	# create symlink to kernel build directory
