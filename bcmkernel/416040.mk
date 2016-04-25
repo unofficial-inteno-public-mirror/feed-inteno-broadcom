@@ -167,6 +167,10 @@ ifneq ($(CONFIG_BCM_OPEN),y)
 endif
 	echo "#define BCM_SDK_VERSION $(BRCM_SDK_VERSION)" > $(STAGING_DIR)/usr/include/bcm_sdk_version.h
 
+	# get strophe.h from Broadcom Kernel
+	$(INSTALL_DIR) $(STAGING_DIR)/usr/include/strophe
+	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/userspace/public/libs/strophe/libstrophe/strophe.h $(STAGING_DIR)/usr/include/strophe/
+
 ifneq ($(CONFIG_BCM_OPEN),y)
 	# create symlink to kernel build directory
 	rm -f $(BUILD_DIR)/bcmkernel
@@ -349,15 +353,15 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libatmctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libethswctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libwlmngr.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libstrophe.so $(1)/usr/lib/
 
 ifeq (963138BGWV,$(BCM_BS_PROFILE))
-	# needed for tmctl on dg400
+	# needed by tmctl on dg400
 	$(CP) $(BCM_LIB_DIR)/librdpactl.so $(1)/usr/lib/
 endif
 
 	# install dsl firmware
 	cp $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/dsl/$(BCM_BS_PROFILE)/* $(1)/etc/dsl
-
 
 	# Install kernel modules
 	rm -rf $(1)/lib/modules/$(BCM_KERNEL_VERSION)/*
