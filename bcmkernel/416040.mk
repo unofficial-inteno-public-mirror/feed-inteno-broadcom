@@ -271,7 +271,11 @@ endif
 # brcm vlan controller
 	$(CP) $(BCM_BIN_DIR)/vlanctl $(1)/usr/sbin/
 
+# brcm BPM control utility
+	$(CP) $(BCM_BIN_DIR)/bpmctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/bpm $(1)/usr/sbin/
 # brcm ingress QoS control utility
+	$(CP) $(BCM_BIN_DIR)/iqctl $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/iq $(1)/usr/sbin/
 
 # brcm wireless configuration tool
@@ -359,6 +363,7 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libethswctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libwlmngr.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libstrophe.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libiqctl.so $(1)/usr/lib/
 
 ifeq (963138BGWV,$(BCM_BS_PROFILE))
 	# needed by tmctl on dg400
