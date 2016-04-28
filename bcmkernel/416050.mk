@@ -369,6 +369,10 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libstrophe.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libiqctl.so $(1)/usr/lib/
 
+ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963381GWV_),)
+	$(CP) $(BCM_LIB_DIR)/libbcmtm.so $(1)/usr/lib/
+endif
+
 ifeq (963138BGWV,$(BCM_BS_PROFILE))
 	# needed by tmctl on dg400
 	$(CP) $(BCM_LIB_DIR)/librdpactl.so $(1)/usr/lib/
