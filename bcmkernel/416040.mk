@@ -271,12 +271,14 @@ endif
 # brcm vlan controller
 	$(CP) $(BCM_BIN_DIR)/vlanctl $(1)/usr/sbin/
 
+ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV__96362GWV_),)
 # brcm BPM control utility
 	$(CP) $(BCM_BIN_DIR)/bpmctl $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/bpm $(1)/usr/sbin/
 # brcm ingress QoS control utility
 	$(CP) $(BCM_BIN_DIR)/iqctl $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/iq $(1)/usr/sbin/
+endif
 
 # brcm wireless configuration tool
 # reads from nvram and configures wifi with wlctl commands
@@ -339,6 +341,7 @@ endif
 ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV__96362GWV_),)
 	$(CP) $(BCM_LIB_DIR)/libfapctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libspuctl.so $(1)/usr/lib/
+	$(CP) $(BCM_LIB_DIR)/libiqctl.so $(1)/usr/lib/
 endif
 	$(CP) $(BCM_LIB_DIR)/libfcctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libnanoxml.so $(1)/usr/lib/
@@ -363,7 +366,6 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libethswctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libwlmngr.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libstrophe.so $(1)/usr/lib/
-	$(CP) $(BCM_LIB_DIR)/libiqctl.so $(1)/usr/lib/
 
 ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963381GWV_),)
 	$(CP) $(BCM_LIB_DIR)/libbcmtm.so $(1)/usr/lib/
