@@ -39,8 +39,8 @@ BCM_BS_PROFILE = $(shell echo $(CONFIG_BCM_KERNEL_PROFILE) | sed s/\"//g)
 BCM_KERNEL_VERSION:=3.4.11-rt19
 BCM_SDK_VERSION:=bcm963xx
 RSTRIP:=true
-BCM_BIN_DIR:=$(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/bin/
-BCM_LIB_DIR:=$(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/lib/
+BCM_BIN_DIR=$(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/bin
+BCM_LIB_DIR=$(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs/lib
 
 define Package/bcmkernel/removevoice
 	touch $(1)/lib/modules/$(BCM_KERNEL_VERSION)/extra/endpointdd.ko
