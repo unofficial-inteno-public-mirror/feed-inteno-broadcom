@@ -25,7 +25,7 @@ PKG_SOURCE_VERSION_FILE:=$(lastword $(MAKEFILE_LIST))
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/image.mk
-include $(INCLUDE_DIR)/kernel.mkl
+include $(INCLUDE_DIR)/kernel.mk
 
 export CONFIG_BCM_CHIP_ID
 export CONFIG_BCM_CFE_PASSWORD
