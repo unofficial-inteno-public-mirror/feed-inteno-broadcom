@@ -8,7 +8,7 @@
 # Update this based on the Broadcom SDK version, 4.16L.05 -> 416050
 BRCM_SDK_VERSION:=416050
 
-PKG_SOURCE_VERSION:=7c9341015a74e09b0426cbfc2b0e665be4669f7f
+PKG_SOURCE_VERSION:=90d23458ef40fbeb93c47c2fc63f54e6d39fbf72
 
 ifneq ($(CONFIG_BCM_OPEN),y)
 PKG_NAME:=bcmkernel-3.4
@@ -25,7 +25,7 @@ PKG_SOURCE_VERSION_FILE:=$(lastword $(MAKEFILE_LIST))
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/image.mk
-include $(INCLUDE_DIR)/kernel.mk
+include $(INCLUDE_DIR)/kernel.mkl
 
 export CONFIG_BCM_CHIP_ID
 export CONFIG_BCM_CFE_PASSWORD
