@@ -186,9 +186,6 @@ endif
 	$(CP) $(BCM_BIN_DIR)/acs_cli $(1)/usr/sbin/
 	$(CP) $(BCM_BIN_DIR)/acsd $(1)/usr/sbin/
 
-# tmctl - traffic manager
-	$(CP) $(BCM_BIN_DIR)/tmctl $(1)/usr/sbin/
-
 # bcm bridge control
 	$(CP) $(BCM_BIN_DIR)/brctl $(1)/usr/sbin/
 
@@ -196,6 +193,11 @@ endif
 	$(CP) $(BCM_BIN_DIR)/busybox $(1)/usr/sbin/
 # taskset called by wl driver
 	ln -s /usr/sbin/busybox $(1)/usr/bin/taskset
+
+ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV_963138BGWV_96362GWV_),)
+# tmctl - traffic manager
+	$(CP) $(BCM_BIN_DIR)/tmctl $(1)/usr/sbin/
+endif
 
 
 # band steering daemon
