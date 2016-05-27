@@ -351,7 +351,9 @@ endif
 	$(CP) $(BCM_LIB_DIR)/libpwrctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libsnoopctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libssp.so $(1)/usr/lib/
+ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV_963138BGWV_96362GWV_),)
 	$(CP) $(BCM_LIB_DIR)/libtmctl.so $(1)/usr/lib/
+endif
 	$(CP) $(BCM_LIB_DIR)/libvlanctl.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libwlcsm.so $(1)/usr/lib/
 	$(CP) $(BCM_LIB_DIR)/libwlctl.so $(1)/usr/lib/
