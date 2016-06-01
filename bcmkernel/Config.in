@@ -11,7 +11,7 @@ config BCM_OPEN
 choice
        prompt "Broadcom SDK version"
        default BRCM_SDK_VER_416050 if TARGET_iopsys_brcm63xx_arm
-       default BRCM_SDK_VER_416040 if TARGET_iopsys_brcm63xx_mips
+       default BRCM_SDK_VER_416050 if TARGET_iopsys_brcm63xx_mips
        help
 		Version of the Broadcom SDK to use.
 
