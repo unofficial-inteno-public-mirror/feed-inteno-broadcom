@@ -8,7 +8,7 @@
 # Update this based on the Broadcom SDK version, 4.16L.05 -> 416050
 BRCM_SDK_VERSION:=416050
 
-PKG_SOURCE_VERSION:=90d23458ef40fbeb93c47c2fc63f54e6d39fbf72
+PKG_SOURCE_VERSION:=46317125a1c0b6cae6b367de0e46922ac3b6dbc2
 
 ifneq ($(CONFIG_BCM_OPEN),y)
 PKG_NAME:=bcmkernel-3.4
