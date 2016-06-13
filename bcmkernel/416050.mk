@@ -8,7 +8,7 @@
 # Update this based on the Broadcom SDK version, 4.16L.05 -> 416050
 BRCM_SDK_VERSION:=416050
 
-PKG_SOURCE_VERSION:=3e6629abd75f8a4fec5eaa03a6802312959fba9d
+PKG_SOURCE_VERSION:=304d2c8ca1c63c2d67e99a4a56e51e4655548b68
 
 ifneq ($(CONFIG_BCM_OPEN),y)
 PKG_NAME:=bcmkernel-3.4
@@ -420,3 +420,23 @@ endif
 #	$(call Package/bcmkernel/removei2c,$(1))
 endef
 
+ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV_),) 
+
+define Package/speedsvc
+	$(call Package/bcmkernel)q
+	TITLE+=speedsvc
+endef
+
+define Package/speedsvc/description
+	This package contains the speedsvc userspace libs/programs (description)
+endef
+
+define Package/speedsvc/install
+	$(INSTALL_DIR) $(1)/usr/sbin/
+	$(INSTALL_DIR) $(1)/usr/lib/
+	$(CP) $(BCM_BIN_DIR)/speedsvc $(1)/usr/sbin/
+	$(CP) $(BCM_LIB_DIR)/libspdsvc.so $(1)/usr/lib/
+endef
+
+$(eval $(call BuildPackage,speedsvc))
+endif
