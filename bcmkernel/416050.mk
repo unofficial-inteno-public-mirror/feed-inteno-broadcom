@@ -423,7 +423,7 @@ endef
 ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV_),) 
 
 define Package/speedsvc
-	$(call Package/bcmkernel)q
+	$(call Package/bcmkernel)
 	TITLE+=speedsvc
 endef
 
