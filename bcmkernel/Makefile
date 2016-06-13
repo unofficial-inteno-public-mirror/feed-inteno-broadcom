@@ -10,7 +10,7 @@ define Package/bcmkernel
   TITLE:=Broadcom sdk 3.4 kernel
   URL:=
   MENU:=1
-  DEPENDS:=+libpthread +libopenssl
+  DEPENDS:=
 endef
 
 define Package/bcmkernel/description
@@ -61,5 +61,7 @@ endif
 userspace:
 	$(call Build/Compile/Default, userspace)
 
+
 $(eval $(call BuildPackage,bcmkernel))
+
 
