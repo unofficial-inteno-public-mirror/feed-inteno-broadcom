@@ -5,12 +5,9 @@
 include $(TOPDIR)/rules.mk
 
 define Package/bcmkernel
-  SECTION:=net
   CATEGORY:=Base system
   TITLE:=Broadcom sdk 3.4 kernel
-  URL:=
-  MENU:=1
-  DEPENDS:=
+  SUBMENU:=bcmkernel
 endef
 
 define Package/bcmkernel/description

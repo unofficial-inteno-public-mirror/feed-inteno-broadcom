@@ -423,8 +423,10 @@ endef
 ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV_),) 
 
 define Package/speedsvc
-	$(call Package/bcmkernel)
-	TITLE+=speedsvc
+# you have to do this call
+# setting the same variables to the same values do not work ?
+	$(call Package/bcmkernel) 
+	TITLE:=Speed test services
 endef
 
 define Package/speedsvc/description
