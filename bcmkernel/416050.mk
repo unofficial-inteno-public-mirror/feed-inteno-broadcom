@@ -424,8 +424,9 @@ ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV_),)
 
 define Package/speedsvc
 # you have to do this call
-# setting the same variables to the same values do not work ?
-	$(call Package/bcmkernel) 
+# setting the same variables to the same values do not work?
+# space matters somehow!!!!!!!!!!!!!!!!!!!!
+	$(call Package/bcmkernel)
 	TITLE:=Speed test services
 endef
 
