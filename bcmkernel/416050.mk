@@ -420,6 +420,7 @@ endif
 #	$(call Package/bcmkernel/removei2c,$(1))
 endef
 
+ifneq ($(CONFIG_BCM_OPEN),y)
 ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV_),) 
 
 define Package/speedsvc
@@ -442,4 +443,5 @@ define Package/speedsvc/install
 endef
 
 $(eval $(call BuildPackage,speedsvc))
+endif
 endif
