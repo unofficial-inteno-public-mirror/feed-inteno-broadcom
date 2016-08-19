@@ -8,7 +8,7 @@
 # Update this based on the Broadcom SDK version, 4.16L.05 -> 416050
 BRCM_SDK_VERSION:=416050
 
-PKG_SOURCE_VERSION:=e1b8b5157f9ecb93b9c01f54c16a4044ba3e9f34
+PKG_SOURCE_VERSION:=a4b8f8906eea01fa1085e7b2db67d706f8412c9c
 
 ifneq ($(CONFIG_BCM_OPEN),y)
 PKG_NAME:=bcmkernel-3.4
@@ -100,6 +100,7 @@ define Package/bcmkernel/install
 	$(INSTALL_DIR) $(1)/etc/dsl
 	$(INSTALL_DIR) $(1)/etc/wlan
 	$(INSTALL_DIR) $(1)/etc/cms_entity_info.d
+	$(INSTALL_DIR) $(1)/etc/modules.d
 
 	# Install header files
 	$(INSTALL_DIR) $(STAGING_DIR)/usr/include/bcm963xx/bcmdrivers/broadcom/include/bcm963xx
@@ -407,6 +408,10 @@ endif
 	cp -R $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/cfe/ $(KDIR)/cfe
 #	dd if=$(KDIR)/vmlinux.bcm.elf of=$(KDIR)/vmlinux.bcm bs=4096 count=1
 #	$(KERNEL_CROSS)objcopy $(OBJCOPY_STRIP) -S $(LINUX_DIR)/vmlinux $(KERNEL_BUILD_DIR)/vmlinux.elf
+
+
+	# install /etc/modules.d/ files
+	$(CP) ./files/etc/modules.d/* $(1)/etc/modules.d/
 
 	$(call Package/bcmkernel/removevoice,$(1))
 	$(call Package/bcmkernel/removesound,$(1))
