@@ -114,6 +114,10 @@ mcpd_configure() {
 	dscp_mark $igmp_dscp_mark
 }
 
+service_triggers() {
+        procd_add_reload_trigger network mcpd
+}
+
 start_service() {
 	mcpd_configure
         procd_open_instance
@@ -129,23 +133,5 @@ stop_service() {
 reload_service() {
 	stop
 	start
-}
-
-service_triggers() {
-	procd_open_trigger
-
-	add_interface_trigger() {
-		local igmp_proxy_interfaces net
-		config_get igmp_proxy_interfaces "$1" igmp_proxy_interfaces
-		for net in $igmp_proxy_interfaces; do
-			procd_add_interface_trigger "interface.*" "${net}" /etc/init.d/mcpd reload
-		done
-	}
-
-	config_load mcpd
-	config_foreach add_interface_trigger "mcpd"
-	procd_add_config_trigger "config.change" "mcpd" /etc/init.d/mcpd reload
-	procd_add_config_trigger "config.change" "network" /etc/init.d/mcpd reload
-	procd_close_trigger
 }
 
