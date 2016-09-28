@@ -291,6 +291,7 @@ endif
 # adsl -> xdslctl
 #	$(CP) $(BCM_BIN_DIR)/adsl $(1)/usr/sbin/
 #	$(CP) $(BCM_BIN_DIR)/adslctl $(1)/usr/sbin/
+	$(CP) $(BCM_BIN_DIR)/xdslctl $(1)/usr/sbin/
 
 #dsl debugging daemon
 	$(CP) $(BCM_BIN_DIR)/dsldiagd $(1)/usr/sbin/
