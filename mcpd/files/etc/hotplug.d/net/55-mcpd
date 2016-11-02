@@ -1,0 +1,21 @@
+include /lib/network
+
+[ ${INTERFACE:0:2} == "wl" ] && exit
+
+case "$ACTION" in
+        add|register)
+		networkname=$(get_network_of "$INTERFACE")
+		for net in $networkname; do
+			type=$(uci get network."$net".type)
+			proto=$(uci get network."$net".proto)
+			proto=${proto:-none}
+			if [ "$type" == "bridge" -a "$proto" == "none" ]; then
+				proxif="$(uci -q get mcpd.mcpd.igmp_proxy_interfaces)"
+				if [ "$net" == "$proxif" ]; then
+					/etc/init.d/mcpd reload
+					exit
+				fi
+			fi
+		done
+        ;;
+esac
