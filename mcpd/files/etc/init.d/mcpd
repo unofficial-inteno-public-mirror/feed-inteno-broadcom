@@ -33,10 +33,10 @@ mcpd_configure() {
 	local _i
 
         config_load mcpd
-        config_get igmp_snooping_enable mcpd igmp_snooping_enable
+        config_get igmp_snooping_enable mcpd igmp_snooping_enable "0"
         config_get igmp_snooping_interfaces mcpd igmp_snooping_interfaces
         config_get igmp_proxy_interfaces mcpd igmp_proxy_interfaces
-	config_get igmp_proxy_enable mcpd igmp_proxy_enable
+	config_get igmp_proxy_enable mcpd igmp_proxy_enable "0"
 	# disable port snooping on all bridges
 	for br in $(brctl show | grep 'br-' | awk '{print$1}' | tr '\n' ' '); do
 		brctl enableportsnooping $br 0
