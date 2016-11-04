@@ -5,4 +5,5 @@ cdc_mbim
 cdc_ncm
 asix
 kalmia
+rndis_host
 qmi_wwan
