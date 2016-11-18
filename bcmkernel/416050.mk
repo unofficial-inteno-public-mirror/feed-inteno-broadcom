@@ -9,7 +9,6 @@
 BRCM_SDK_VERSION:=416050
 
 PKG_SOURCE_VERSION:=30fafa856d09bbf3e1b6bef4ebb0ca1cd7ce5ddb
-#cbb1241600d9b01b59172f6a1aa8985df80a152d
 
 ifneq ($(CONFIG_BCM_OPEN),y)
 PKG_NAME:=bcmkernel-3.4
