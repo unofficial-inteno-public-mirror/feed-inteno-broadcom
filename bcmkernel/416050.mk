@@ -8,7 +8,7 @@
 # Update this based on the Broadcom SDK version, 4.16L.05 -> 416050
 BRCM_SDK_VERSION:=416050
 
-PKG_SOURCE_VERSION:=0864eb8a0745b6774d58fee5754b26e03b1f88a4
+PKG_SOURCE_VERSION:=932f1214af6064d76f424c19d92b6347fb011eb9
 
 ifneq ($(CONFIG_BCM_OPEN),y)
 PKG_NAME:=bcmkernel-3.4
@@ -101,6 +101,7 @@ define Package/bcmkernel/install
 	$(INSTALL_DIR) $(1)/etc/wlan
 	$(INSTALL_DIR) $(1)/etc/cms_entity_info.d
 	$(INSTALL_DIR) $(1)/etc/modules.d
+	$(INSTALL_DIR) $(1)/etc/init.d
 
 	# Install header files
 	$(INSTALL_DIR) $(STAGING_DIR)/usr/include/bcm963xx/bcmdrivers/broadcom/include/bcm963xx
