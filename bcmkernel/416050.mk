@@ -416,6 +416,9 @@ endif
 	# install /etc/modules.d/ files
 	$(CP) ./files/etc/modules.d/* $(1)/etc/modules.d/
 
+	# install /etc/init.d/ files
+	$(CP) ./files/etc/init.d/* $(1)/etc/init.d/
+
 	$(call Package/bcmkernel/removevoice,$(1))
 	$(call Package/bcmkernel/removesound,$(1))
 #	$(call Package/bcmkernel/removei2c,$(1))

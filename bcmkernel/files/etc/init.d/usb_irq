@@ -1,0 +1,15 @@
+#!/bin/sh /etc/rc.common
+
+START=50
+boot() {
+	#mount_root done
+
+	SOC=$(brcm_fw_tool -k info)
+
+	case  $SOC in
+	   63268)
+		# change cpu that handles usb interrupts.
+		echo 1 > /proc/irq/18/smp_affinity_list
+		;;
+	esac
+}
