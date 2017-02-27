@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 define Package/bcmkernel
   CATEGORY:=Base system
-  TITLE:=Broadcom sdk 3.4 kernel
+  TITLE:=Broadcom SDK kernel
   SUBMENU:=bcmkernel
 endef
 
@@ -27,7 +27,8 @@ ifeq ($(CONFIG_BRCM_SDK_VER_416040),y)
 include ./416040.mk
 
 else ifeq ($(CONFIG_BRCM_SDK_VER_416050),y)
-include ./416050.mk
+#include ./416050.mk
+include ./502020.mk
 
 else
 # Make 'make menuconfig' work even though no SDK version specified
