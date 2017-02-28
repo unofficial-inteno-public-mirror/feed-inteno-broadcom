@@ -10,13 +10,11 @@ BRCM_SDK_VERSION:=502020
 
 PKG_SOURCE_VERSION:=ronny_merge_4.16L.05
 
-#$(error here I need to add stuff)
-#  DEPENDS:= 
-
 ifneq ($(CONFIG_BCM_OPEN),y)
 PKG_NAME := bcmkernel-4.1
 PKG_VERSION := $(BRCM_SDK_VERSION)
 PKG_RELEASE := 1
+PKG_FLAGS := essential
 
 PKG_SOURCE_URL:=git@private.inteno.se:bcmcreator
 PKG_SOURCE_PROTO:=git
@@ -346,9 +344,18 @@ endif
 		libtmctl.so libvlanctl.so libwlcsm.so libwlctl.so						\
 		libwlupnp.so libwps.so libxdslctl.so libwlbcmcrypto.so					\
 		libwlbcmshared.so libcms_util.so libbcm_crc.so libbcm_flashutil.so		\
-		libatmctl.so libethswctl.so libbridgeutil.so
+		libatmctl.so libethswctl.so libbridgeutil.so libethctl.so				\
+		libbcm_boardctl.so libbcmmcast.so
 	# These libs was in v4 but not v5, what todo?
 	# libsnoopctl.so libssp.so libcms_boardctl.so libwlmngr.so
+
+	# Replace sysroot librarys with corresponding from Iopsys
+	cd $(BCM_FS_DIR)/lib &&														\
+		for f in libc.so libcrypt.so libdl.so libm.so libpthread.so				\
+				librt.so libresolv.so; do										\
+			[ -f "$(1)/lib/$$$${f}.1" ] && continue;							\
+			ln -s "$$$${f}.0" "$(1)/lib/$$$${f}.1";								\
+		done
 
 ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV__96362GWV_),)
 	$(CP) $(BCM_FS_DIR)/lib/libfapctl.so										\
