@@ -1,4 +1,16 @@
 ip_tables
+ip_set_bitmap_ip
+ip_set_bitmap_ipmac
+ip_set_bitmap_port
+ip_set_hash_ip
+ip_set_hash_ipportip
+ip_set_hash_ipport
+ip_set_hash_ipportnet
+ip_set_hash_netiface
+ip_set_hash_net
+ip_set_hash_netport
+ip_set
+ip_set_list_set
 iptable_nat
 iptable_filter
 iptable_mangle
@@ -46,6 +58,7 @@ xt_mac
 xt_recent
 xt_state
 xt_time
+xt_set
 ip6_queue
 ip6_tables
 ip6t_REJECT
