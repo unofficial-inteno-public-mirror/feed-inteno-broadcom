@@ -41,6 +41,7 @@ BCM_BS_PROFILE := $(subst ",,$(CONFIG_BCM_KERNEL_PROFILE))
 BCM_KERNEL_VERSION := 4.1.27
 BCM_SDK_VERSION := bcm963xx
 BCM_FS_DIR := $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/fs
+BCM_BOOT_DIR := $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/targets/$(BCM_BS_PROFILE)/bootfs
 
 define Package/bcmkernel/removevoice
 	rm -f $(1)/lib/modules/$(BCM_KERNEL_VERSION)/extra/endpointdd.ko
@@ -395,6 +396,7 @@ endif
 	$(CP) $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/kernel/linux-*/vmlinux $(KDIR)/vmlinux.bcm.elf
 	$(KERNEL_CROSS)strip --remove-section=.note --remove-section=.comment $(KDIR)/vmlinux.bcm.elf
 	$(KERNEL_CROSS)objcopy $(OBJCOPY_STRIP) -O binary $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/kernel/linux-*/vmlinux $(KDIR)/vmlinux.bcm
+	$(CP) $(BCM_BOOT_DIR)/9$(CONFIG_BCM_CHIP_ID).dtb $(KDIR)
 
 	# bootloader nor
 #	cp -R $(PKG_BUILD_DIR)/$(BCM_SDK_VERSION)/cfe/build/broadcom/bcm63xx_rom/bcm9$(CONFIG_BCM_CHIP_ID)_cfe.w $(KDIR)/bcm_bootloader_cfe.w
