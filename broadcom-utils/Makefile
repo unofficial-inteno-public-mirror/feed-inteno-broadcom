@@ -2,9 +2,9 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=broadcom-utils
 PKG_VERSION:=0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
-PKG_SOURCE_VERSION:=81bfd721dda7cb85163b22bb5d2102468aa78397
+PKG_SOURCE_VERSION:=bb5d58d59d65a1f97938a3f4c2fd846985d2ecc8
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=http://public.inteno.se:/broadcom-utils
 
@@ -47,6 +47,7 @@ ifdef CONFIG_MTD_REDBOOT_PARTS
 endif
 
 define Package/brcm_fw_tool
+	export CONFIG_PACKAGE_brcm_fw_tool
 	$(call Package/broadcom-utils/Default)
 	TITLE:=Update utility for Broadcom nand firmware images
 endef
@@ -86,6 +87,7 @@ EXTRA_CFLAGS += -I$(STAGING_DIR)/usr/include/bcm963xx/xChange/dslx_common/voice_
 EXTRA_CFLAGS += -I$(STAGING_DIR)/usr/include/bcm963xx/xChange/dslx_common/xchg_drivers/inc
 
 define Package/brcminfo
+	export CONFIG_PACKAGE_brcminfo
 	$(call Package/broadcom-utils/Default)
 	TITLE:=Broadcom voice driver info utility
 endef
