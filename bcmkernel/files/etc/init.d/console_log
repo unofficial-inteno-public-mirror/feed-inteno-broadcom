@@ -1,7 +1,0 @@
-#!/bin/sh /etc/rc.common
-
-START=99
-boot() {
-    # Disable loggin to serial port.
-    echo 0 >/proc/sys/kernel/printk
-}
