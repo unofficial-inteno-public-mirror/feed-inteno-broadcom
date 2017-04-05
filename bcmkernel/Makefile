@@ -27,7 +27,9 @@ ifeq ($(CONFIG_BRCM_SDK_VER_416040),y)
 include ./416040.mk
 
 else ifeq ($(CONFIG_BRCM_SDK_VER_416050),y)
-#include ./416050.mk
+include ./416050.mk
+
+else ifeq ($(CONFIG_BRCM_SDK_VER_502002),y)
 include ./502020.mk
 
 else
