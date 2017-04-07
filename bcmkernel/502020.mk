@@ -351,13 +351,15 @@ endif
 	# These libs was in v4 but not v5, what todo?
 	# libsnoopctl.so libssp.so libcms_boardctl.so libwlmngr.so
 
-	# Replace sysroot librarys with corresponding from Iopsys
-	cd $(BCM_FS_DIR)/lib &&														\
-		for f in libc.so libcrypt.so libdl.so libm.so libpthread.so				\
-				librt.so libresolv.so; do										\
-			[ -f "$(1)/lib/$$$${f}.1" ] && continue;							\
-			ln -s "$$$${f}.0" "$(1)/lib/$$$${f}.1";								\
-		done
+	# Copy uclibc libs as we need them for the brcm utilities
+	# For all other programs we use musl for now
+	$(CP) $(BCM_FS_DIR)/lib/ld-uClibc.so.* $(1)/lib/
+	$(CP) $(BCM_FS_DIR)/lib/libc.so.1 $(1)/lib/
+	$(CP) $(BCM_FS_DIR)/lib/libcrypt.so.1 $(1)/lib/
+	$(CP) $(BCM_FS_DIR)/lib/libdl.so.1 $(1)/lib/
+	$(CP) $(BCM_FS_DIR)/lib/libm.so.1 $(1)/lib/
+	$(CP) $(BCM_FS_DIR)/lib/libpthread.so.1 $(1)/lib/
+
 
 ifneq ($(findstring _$(strip $(BCM_BS_PROFILE))_,_963268GWV__96362GWV_),)
 	$(CP) $(BCM_FS_DIR)/lib/libfapctl.so										\
